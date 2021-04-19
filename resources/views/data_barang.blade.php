@@ -35,7 +35,7 @@
                                 <td><?php echo $no++; ?></td>
                                 <td><img width="150px" src="{{ url('/images/'.$b->image )}}"></td>
                                 <td>{{ $b -> nama_barang }}</td>
-                                <td>{{ $b -> lokasi_barang }}</td>
+                                <td>{{ $b -> lokasi -> lokasi}}</td>
                                 <td>{{ $b -> stock_barang }}</td>
                                 <td>
                                     <a href="/data_barang/edit/{{ $b->id }}" class="btn btn-warning">Edit</a>

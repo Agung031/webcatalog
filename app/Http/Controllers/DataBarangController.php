@@ -12,6 +12,7 @@ class DataBarangController extends Controller
     public function index(){
         $data_barang = DataBarang::all();
         return view('data_barang',['data_barang' => $data_barang]);
+        //return response()->json(['data_barang' => $data_barang]);
     }
 
     public function tambah(){
@@ -26,12 +27,6 @@ class DataBarangController extends Controller
             'stock_barang' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
-        
-        if($request->lokasi_barang == 1){
-            $lokasi = "GUDANG";
-        }else{
-            $lokasi = "TOKO";
-        };
 
         $resource = $request->file('image');
         $name = time()."_".$resource->getClientOriginalName();
@@ -40,7 +35,7 @@ class DataBarangController extends Controller
 
         DataBarang::create([
             'nama_barang' => $request->nama_barang,
-            'lokasi_barang' => $lokasi,
+            'lokasi_barang' => $request->lokasi_barang,
             'stock_barang' => $request->stock_barang,
             'image' => $name,
         ]);
@@ -64,12 +59,6 @@ class DataBarangController extends Controller
             'stock_barang' => 'required|numeric',
         ]);
 
-        if($request->lokasi_barang == 1){
-            $lokasi = "GUDANG";
-        }else{
-            $lokasi = "TOKO";
-        };
-
         $img_old = $request->img;
         $resource = $request->file('image');
 
@@ -85,7 +74,7 @@ class DataBarangController extends Controller
         
         $data_barang = DataBarang::find($id);
         $data_barang->nama_barang = $request->nama_barang;
-        $data_barang->lokasi_barang = $lokasi;
+        $data_barang->lokasi_barang_id = $request->lokasi_barang;
         $data_barang->stock_barang = $request->stock_barang;
         $data_barang->image = $name;
         $data_barang->save();
